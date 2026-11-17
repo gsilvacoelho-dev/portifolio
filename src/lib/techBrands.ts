@@ -50,6 +50,7 @@ export const brandMap: Record<string, SimpleIcon> = {
   Git: siGit,
   Vite: siVite,
   Claude: siClaude,
+  'Claude Code': siClaude,
   Gemini: siGooglegemini,
   n8n: siN8n,
   Zapier: siZapier,

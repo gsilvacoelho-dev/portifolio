@@ -76,11 +76,11 @@ export const resumeData = {
     },
     {
       id: 'velocity',
-      title: 'Velocidade com IA no desenvolvimento',
+      title: 'Vibe coding: velocidade com IA no desenvolvimento',
       description:
-        'Uso IA como par de programação no meu próprio fluxo — este portfólio, por exemplo, foi construído assim. Isso me permite sair do zero ao produto no ar em dias, cobrindo frontend, backend e banco sozinho.',
+        'Trabalho em vibe coding: a IA é meu par de programação no fluxo do dia a dia, com Claude Code rodando dentro do projeto — este portfólio foi construído assim, do primeiro commit ao deploy. É isso que me permite sair do zero ao produto no ar em dias, cobrindo frontend, backend e banco sozinho.',
       evidence: 'NutriUAI, Digita Brasil, 5SManager',
-      tags: ['Claude', 'AI pair programming', 'Zero-to-production'],
+      tags: ['Vibe coding', 'Claude Code', 'Zero-to-production'],
     },
     {
       id: 'dashboards',
@@ -241,6 +241,7 @@ export const resumeData = {
       { name: 'OpenAI API' },
       { name: 'Prompt Engineering' },
       { name: 'Claude' },
+      { name: 'Claude Code' },
       { name: 'LLM Apps' },
       // ATIVAR só se você realmente usou. Ver notas no fim do arquivo.
       // { name: 'Gemini' },
@@ -320,7 +321,8 @@ export const resumeData = {
  * Lacunas reais (NÃO preencher com o que não existe):
  *   FALTA  Orquestração de agentes (Claude/GPT/Gemini)
  *   FALTA  n8n / Make / Zapier
- *   FALTA  Vibe coding declarado (Cursor, v0, Bolt, Replit)
+ *   OK     Vibe coding declarado -> Claude Code (technologies.ai + "Velocidade
+ *            com IA no desenvolvimento" em aiPractice)
  *
  * Se você já usou qualquer uma delas, descomente em `technologies.ai` e
  * adicione a evidência em `aiPractice`.
