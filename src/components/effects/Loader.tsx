@@ -1,105 +1,149 @@
-import { useEffect, useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { useEffect, useRef, useState } from 'react';
+import { motion } from 'framer-motion';
 import { PROFILE_PHOTO } from '../../lib/constants';
 
 interface LoaderProps {
-  onComplete: () => void;
+  /**
+   * Dispara quando a cortina COMEÇA a subir — não quando termina.
+   * É o sinal de "o site já pode rolar": a página destrava junto com o fade,
+   * em vez de ficar presa atrás de uma cortina translúcida.
+   */
+  onReveal: () => void;
 }
+
+const DURATION = 900;
+const HOLD = 100;
+const FADE = 0.45;
 
 /**
  * Opening loader: avatar + progress bar that counts to 100%, then curtains
  * away revealing the site. Cai para o monograma "G" se a imagem falhar.
+ *
+ * Regras de acessibilidade/mobile:
+ *  - respeita `prefers-reduced-motion` (sem abertura nenhuma);
+ *  - solta o scroll no início do fade, com `pointer-events: none` na cortina;
+ *  - tem rede de segurança de relógio de parede, porque `requestAnimationFrame`
+ *    é estrangulado no iOS em modo de baixo consumo e em aba de segundo plano.
  */
-export function Loader({ onComplete }: LoaderProps) {
+export function Loader({ onReveal }: LoaderProps) {
   const [progress, setProgress] = useState(0);
   const [done, setDone] = useState(false);
+  const [gone, setGone] = useState(false);
   const [imgOk, setImgOk] = useState(true);
 
-  useEffect(() => {
-    const start = performance.now();
-    const duration = 1600;
-    let raf = 0;
+  const revealRef = useRef(onReveal);
+  revealRef.current = onReveal;
 
+  useEffect(() => {
+    let raf = 0;
+    let hold: ReturnType<typeof setTimeout>;
+    let finished = false;
+
+    const finish = () => {
+      if (finished) return;
+      finished = true;
+      setProgress(100);
+      setDone(true);
+      revealRef.current();
+    };
+
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      finish();
+      setGone(true);
+      return;
+    }
+
+    const start = performance.now();
     const tick = (now: number) => {
-      const t = Math.min((now - start) / duration, 1);
+      const t = Math.min((now - start) / DURATION, 1);
       // easeOutCubic
       const eased = 1 - Math.pow(1 - t, 3);
       setProgress(Math.round(eased * 100));
       if (t < 1) {
         raf = requestAnimationFrame(tick);
       } else {
-        setTimeout(() => setDone(true), 250);
+        hold = setTimeout(finish, HOLD);
       }
     };
     raf = requestAnimationFrame(tick);
-    return () => cancelAnimationFrame(raf);
+
+    const safety = setTimeout(finish, DURATION + HOLD + 600);
+
+    return () => {
+      cancelAnimationFrame(raf);
+      clearTimeout(hold);
+      clearTimeout(safety);
+    };
   }, []);
 
+  if (gone) return null;
+
   return (
-    <AnimatePresence onExitComplete={onComplete}>
-      {!done && (
-        <motion.div
-          className="fixed inset-0 z-[10000] flex flex-col items-center justify-center bg-dark"
-          exit={{ opacity: 0 }}
-          transition={{ duration: 0.6, ease: 'easeInOut' }}
-        >
-          {/* ambient glow */}
-          <div className="pointer-events-none absolute h-72 w-72 rounded-full bg-accent-purple/20 blur-[100px]" />
+    <motion.div
+      className="fixed inset-0 z-[10000] flex flex-col items-center justify-center bg-dark"
+      // a cortina para de capturar toque no instante em que começa a sumir
+      style={{ pointerEvents: done ? 'none' : 'auto' }}
+      animate={{ opacity: done ? 0 : 1 }}
+      transition={{ duration: FADE, ease: 'easeInOut' }}
+      onAnimationComplete={() => {
+        if (done) setGone(true);
+      }}
+    >
+      {/* ambient glow */}
+      <div className="pointer-events-none absolute h-72 w-72 rounded-full bg-accent-purple/20 blur-[100px]" />
 
-          {/* Avatar */}
-          <motion.div
-            initial={{ scale: 0.6, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-            className="relative mb-8 h-24 w-24"
-          >
-            <motion.span
-              aria-hidden
-              className="absolute inset-0 rounded-full bg-accent-cyan/25 blur-2xl"
-              animate={{ opacity: [0.4, 1, 0.4] }}
-              transition={{ duration: 2, repeat: Infinity }}
-            />
-            {imgOk ? (
-              <img
-                src={PROFILE_PHOTO}
-                alt=""
-                onError={() => setImgOk(false)}
-                className="relative h-full w-full object-contain"
-                loading="eager"
-              />
-            ) : (
-              <div className="relative flex h-full w-full items-center justify-center rounded-2xl border border-white/10 bg-white/5 backdrop-blur-xl">
-                <span className="font-display text-5xl font-bold gradient-text-animated">G</span>
-              </div>
-            )}
-          </motion.div>
-
-          {/* Name */}
-          <motion.p
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.3 }}
-            className="mb-6 font-display text-sm uppercase tracking-[0.35em] text-text-secondary"
-          >
-            Gabriel Coelho Ferro
-          </motion.p>
-
-          {/* Progress bar */}
-          <div className="h-[3px] w-56 overflow-hidden rounded-full bg-white/10">
-            <motion.div
-              className="h-full rounded-full bg-gradient-to-r from-accent-cyan to-accent-purple"
-              style={{ width: `${progress}%` }}
-            />
+      {/* Avatar */}
+      <motion.div
+        initial={{ scale: 0.6, opacity: 0 }}
+        animate={{ scale: 1, opacity: 1 }}
+        transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+        className="relative mb-8 h-24 w-24"
+      >
+        <motion.span
+          aria-hidden
+          className="absolute inset-0 rounded-full bg-accent-cyan/25 blur-2xl"
+          animate={{ opacity: [0.4, 1, 0.4] }}
+          transition={{ duration: 2, repeat: Infinity }}
+        />
+        {imgOk ? (
+          <img
+            src={PROFILE_PHOTO}
+            alt=""
+            onError={() => setImgOk(false)}
+            className="relative h-full w-full object-contain"
+            loading="eager"
+          />
+        ) : (
+          <div className="relative flex h-full w-full items-center justify-center rounded-2xl border border-white/10 bg-white/5 backdrop-blur-xl">
+            <span className="font-display text-5xl font-bold gradient-text-animated">G</span>
           </div>
-          <motion.span
-            className="mt-3 font-mono text-xs text-text-muted"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-          >
-            {progress}%
-          </motion.span>
-        </motion.div>
-      )}
-    </AnimatePresence>
+        )}
+      </motion.div>
+
+      {/* Name */}
+      <motion.p
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.3 }}
+        className="mb-6 font-display text-sm uppercase tracking-[0.35em] text-text-secondary"
+      >
+        Gabriel Coelho Ferro
+      </motion.p>
+
+      {/* Progress bar */}
+      <div className="h-[3px] w-56 overflow-hidden rounded-full bg-white/10">
+        <motion.div
+          className="h-full rounded-full bg-gradient-to-r from-accent-cyan to-accent-purple"
+          style={{ width: `${progress}%` }}
+        />
+      </div>
+      <motion.span
+        className="mt-3 font-mono text-xs text-text-muted"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+      >
+        {progress}%
+      </motion.span>
+    </motion.div>
   );
 }

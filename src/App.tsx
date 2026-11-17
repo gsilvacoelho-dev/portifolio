@@ -1,4 +1,4 @@
-import { Suspense, lazy, useEffect, useState } from 'react';
+import { Suspense, lazy, useCallback, useEffect, useState } from 'react';
 import { AnimatedBackground } from './components/effects/AnimatedBackground';
 import { CustomCursor } from './components/effects/CustomCursor';
 import { ScrollProgress } from './components/effects/ScrollProgress';
@@ -37,18 +37,30 @@ const SectionFallback = () => <div className="min-h-[40vh]" />;
 
 export default function App() {
   const [loading, setLoading] = useState(true);
+  const reveal = useCallback(() => setLoading(false), []);
 
-  // Lock scroll while the intro loader is visible.
+  /**
+   * Trava o scroll só enquanto a cortina é opaca. O Loader chama `onReveal`
+   * no início do fade, não no fim — antes, a página ficava presa por mais de
+   * meio segundo com o site já visível, o que no celular parece travamento.
+   *
+   * O timeout é rede de segurança: a trava nunca pode sobreviver ao loader,
+   * nem se a animação não completar (iOS em baixo consumo, aba em segundo
+   * plano, falha ao carregar a foto).
+   */
   useEffect(() => {
-    document.body.style.overflow = loading ? 'hidden' : '';
+    if (!loading) return;
+    document.body.style.overflow = 'hidden';
+    const failsafe = setTimeout(reveal, 2600);
     return () => {
+      clearTimeout(failsafe);
       document.body.style.overflow = '';
     };
-  }, [loading]);
+  }, [loading, reveal]);
 
   return (
     <>
-      <Loader onComplete={() => setLoading(false)} />
+      <Loader onReveal={reveal} />
 
       <AnimatedBackground />
       <CustomCursor />
