@@ -209,7 +209,9 @@ export function Hero({ start = true }: { start?: boolean }) {
         transition={{ delay: 1.4 }}
         className="absolute bottom-8 left-1/2 flex -translate-x-1/2 flex-col items-center gap-2 text-text-muted"
       >
-        <span className="font-mono text-[0.65rem] uppercase tracking-[0.3em]">Scroll</span>
+        <span className="hidden font-mono text-[0.65rem] uppercase tracking-[0.3em] sm:inline">
+          Scroll
+        </span>
         <span className="hidden h-9 w-5 items-start justify-center rounded-full border border-white/20 p-1 sm:flex">
           <motion.span
             className="h-1.5 w-1.5 rounded-full bg-accent-cyan"
