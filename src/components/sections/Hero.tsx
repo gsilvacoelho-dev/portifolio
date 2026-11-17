@@ -49,11 +49,11 @@ export function Hero({ start = true }: { start?: boolean }) {
     <section
       id="home"
       ref={ref}
-      className="relative flex min-h-screen items-center overflow-hidden px-6 pt-28 pb-16"
+      className="relative flex min-h-screen items-center overflow-hidden px-6 pt-24 pb-16 sm:pt-28"
     >
       <motion.div
         style={{ y: contentY, opacity: contentOpacity }}
-        className="mx-auto grid w-full max-w-6xl grid-cols-1 items-center gap-12 lg:grid-cols-[1.15fr_0.85fr]"
+        className="mx-auto grid w-full max-w-6xl grid-cols-1 items-center gap-7 sm:gap-12 lg:grid-cols-[1.15fr_0.85fr]"
       >
         {/* ---------- Left: text ---------- */}
         <motion.div
@@ -169,7 +169,7 @@ export function Hero({ start = true }: { start?: boolean }) {
             onMouseMove={onPhotoMove}
             onMouseLeave={resetPhoto}
             style={{ rotateX: rotX, rotateY: rotY, transformStyle: 'preserve-3d' }}
-            className="relative h-72 w-72 sm:h-80 sm:w-80 lg:h-96 lg:w-96"
+            className="relative h-52 w-52 sm:h-80 sm:w-80 lg:h-96 lg:w-96"
           >
             {/* Halo ambiente. O avatar já traz o próprio anel neon, então aqui
                 entra só um brilho difuso por trás — nada de segunda moldura. */}
@@ -210,7 +210,7 @@ export function Hero({ start = true }: { start?: boolean }) {
         className="absolute bottom-8 left-1/2 flex -translate-x-1/2 flex-col items-center gap-2 text-text-muted"
       >
         <span className="font-mono text-[0.65rem] uppercase tracking-[0.3em]">Scroll</span>
-        <span className="flex h-9 w-5 items-start justify-center rounded-full border border-white/20 p-1">
+        <span className="hidden h-9 w-5 items-start justify-center rounded-full border border-white/20 p-1 sm:flex">
           <motion.span
             className="h-1.5 w-1.5 rounded-full bg-accent-cyan"
             animate={{ y: [0, 12, 0], opacity: [1, 0.3, 1] }}

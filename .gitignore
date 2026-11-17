@@ -34,3 +34,6 @@ public/.og-tmp.html
 # Estratégia de candidatura: contém carta de apresentação, valor de bolsa e a
 # análise das minhas lacunas. Se o repositório for público, isso fica exposto.
 CANDIDATURA-IFOOD.md
+
+# Screenshots de verificacao (geradas por scripts/shot-mobile.cjs)
+shots/
