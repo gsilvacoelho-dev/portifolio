@@ -70,8 +70,7 @@
 ## 💼 Portfólio completo
 
 <p align="center">
-  <!-- TODO: troque a URL abaixo pelo link do portfólio depois do deploy -->
-  <a href="https://SEU-PORTFOLIO-AQUI.vercel.app">
+  <a href="https://gabrielsilva.pro">
     <img src="https://img.shields.io/badge/Ver%20portf%C3%B3lio%20completo-22d3ee?style=for-the-badge&logoColor=white"/>
   </a>
 </p>
