@@ -268,7 +268,7 @@ export const resumeData = {
     {
       title: 'AI-first na prática',
       description:
-        'Não estudo IA — construo com ela. Tenho produto no ar que usa LLM para resolver um problema real de usuário, com prompts estruturados e ancoragem em dados confiáveis.',
+        'Tenho produto no ar que usa LLM para resolver um problema real de usuário: prompt montado em runtime, saída estruturada e ancoragem em dados confiáveis.',
     },
     {
       title: 'Velocidade do zero ao ar',

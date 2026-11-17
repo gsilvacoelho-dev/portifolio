@@ -3,7 +3,7 @@
 <h3 align="left">AI Builder · Construo produtos e automações com IA generativa</h3>
 
  🚀 Sobre mim
-- 🤖 **Construo com IA generativa** — tenho produto com LLM **em produção**, não só em protótipo
+- 🤖 **Construo com IA generativa** — tenho produto com LLM **em produção**
 - 🔭 Trabalhando em **produtos com IA, automações e ferramentas internas**
 - 💡 Já coloquei no ar:
   - Plataforma de dieta e treino com IA generativa

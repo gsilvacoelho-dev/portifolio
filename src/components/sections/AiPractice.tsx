@@ -25,7 +25,7 @@ export function AiPractice() {
         <SectionHeading
           eyebrow="IA na prática"
           title="O que eu já construí com IA generativa"
-          subtitle="Não é lista de cursos. Cada item abaixo é uma capacidade com o projeto real onde ela foi aplicada."
+          subtitle="Cada item abaixo é uma capacidade com o projeto real onde ela foi aplicada."
         />
 
         <motion.div
