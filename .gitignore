@@ -1,0 +1,36 @@
+# Dependências
+node_modules
+
+# Build (gerado por `npm run build` — não versionar)
+dist
+dist-ssr
+*.local
+
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Editor / SO
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+Thumbs.db
+desktop.ini
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Temporário do gerador de card social
+public/.og-tmp.html
+
+# --- Pessoal, não publicar -------------------------------------------------
+# Estratégia de candidatura: contém carta de apresentação, valor de bolsa e a
+# análise das minhas lacunas. Se o repositório for público, isso fica exposto.
+CANDIDATURA-IFOOD.md

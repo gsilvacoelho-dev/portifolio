@@ -1,0 +1,486 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Currículo — Gabriel da Silva Coelho Ferro | AI Builder</title>
+    <style>
+      /* ---- Impressão: A4, margens enxutas, sem cortar bloco no meio ---- */
+      @page {
+        size: A4;
+        margin: 12mm 14mm;
+      }
+
+      :root {
+        --ink: #14181f;
+        --ink-soft: #3d4654;
+        --ink-faint: #68727f;
+        --rule: #d9dee6;
+        --accent: #0f6fb3;
+        --chip-bg: #eef3f8;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: 'Segoe UI', -apple-system, Roboto, Helvetica, Arial, sans-serif;
+        font-size: 10.2pt;
+        line-height: 1.42;
+        color: var(--ink);
+        max-width: 190mm;
+        margin: 0 auto;
+        padding: 10mm 8mm;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+
+      /* ---------- Cabeçalho ---------- */
+      header {
+        border-bottom: 2.5px solid var(--ink);
+        padding-bottom: 9px;
+        margin-bottom: 14px;
+      }
+
+      .name {
+        font-size: 21pt;
+        font-weight: 700;
+        letter-spacing: -0.4px;
+        line-height: 1.1;
+      }
+
+      .headline {
+        font-size: 11pt;
+        font-weight: 600;
+        color: var(--accent);
+        margin-top: 2px;
+      }
+
+      .degree {
+        font-size: 9.4pt;
+        color: var(--ink-faint);
+        margin-top: 1px;
+      }
+
+      .contact {
+        margin-top: 7px;
+        font-size: 9pt;
+        color: var(--ink-soft);
+        display: flex;
+        flex-wrap: wrap;
+        gap: 4px 14px;
+      }
+
+      .contact a {
+        color: var(--ink-soft);
+        text-decoration: none;
+      }
+
+      /* ---------- Seções ---------- */
+      section {
+        margin-bottom: 13px;
+      }
+
+      h2 {
+        font-size: 9.2pt;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 1.3px;
+        color: var(--ink);
+        border-bottom: 1px solid var(--rule);
+        padding-bottom: 3px;
+        margin: 0 0 7px;
+        /* um título nunca fica sozinho no rodapé da página */
+        break-after: avoid;
+      }
+
+      p {
+        margin: 0 0 5px;
+      }
+
+      .summary {
+        text-align: justify;
+        color: var(--ink-soft);
+      }
+
+      /* ---------- Itens de histórico ---------- */
+      .item {
+        margin-bottom: 10px;
+        break-inside: avoid;
+      }
+
+      .item:last-child {
+        margin-bottom: 0;
+      }
+
+      .item-head {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        gap: 10px;
+      }
+
+      .item-title {
+        font-weight: 700;
+        font-size: 10.6pt;
+      }
+
+      .item-org {
+        color: var(--accent);
+        font-weight: 600;
+        font-size: 9.6pt;
+      }
+
+      .item-date {
+        font-size: 8.8pt;
+        color: var(--ink-faint);
+        white-space: nowrap;
+        font-variant-numeric: tabular-nums;
+      }
+
+      ul {
+        margin: 4px 0 0;
+        padding-left: 15px;
+      }
+
+      li {
+        margin-bottom: 2.5px;
+        color: var(--ink-soft);
+      }
+
+      /* ---------- Chips de skill ---------- */
+      .skill-row {
+        display: flex;
+        gap: 8px;
+        margin-bottom: 5px;
+        align-items: baseline;
+      }
+
+      .skill-label {
+        font-weight: 700;
+        font-size: 9pt;
+        min-width: 86px;
+        flex: none;
+      }
+
+      .skill-list {
+        font-size: 9.2pt;
+        color: var(--ink-soft);
+      }
+
+      /* ---------- Projetos ---------- */
+      .proj-link {
+        font-size: 8.8pt;
+        color: var(--accent);
+        text-decoration: none;
+        font-weight: 600;
+      }
+
+      .tag-row {
+        margin-top: 4px;
+        font-size: 8.4pt;
+        color: var(--ink-faint);
+      }
+
+      .tag {
+        background: var(--chip-bg);
+        padding: 1.5px 6px;
+        border-radius: 3px;
+        margin-right: 3px;
+        display: inline-block;
+      }
+
+      /* ---------- Rodapé de duas colunas ---------- */
+      .two-col {
+        display: flex;
+        gap: 22px;
+        break-inside: avoid;
+      }
+
+      .two-col > * {
+        flex: 1;
+      }
+
+      .no-print {
+        margin-top: 22px;
+        padding: 12px 14px;
+        background: #f4f7fa;
+        border-left: 3px solid var(--accent);
+        font-size: 9pt;
+        color: var(--ink-soft);
+      }
+
+      @media print {
+        body {
+          padding: 0;
+        }
+        .no-print {
+          display: none;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div class="name">Gabriel da Silva Coelho Ferro</div>
+      <div class="headline">AI Builder &middot; Desenvolvedor de Produtos com IA</div>
+      <div class="degree">Bacharel em Sistemas de Informação &middot; Minas Gerais, Brasil &middot; Disponível para remoto</div>
+      <div class="contact">
+        <span>(38) 98426-7179</span>
+        <a href="mailto:gsilvacoelhoferro@gmail.com">gsilvacoelhoferro@gmail.com</a>
+        <a href="https://linkedin.com/in/gabriel-coelho-ferro">linkedin.com/in/gabriel-coelho-ferro</a>
+        <a href="https://github.com/gsilvacoelho-dev">github.com/gsilvacoelho-dev</a>
+      </div>
+    </header>
+
+    <section>
+      <h2>Resumo</h2>
+      <p class="summary">
+        Bacharel em Sistemas de Informação que usa IA generativa como ferramenta de construção, não
+        como assunto de estudo. Coloquei <strong>três produtos em produção</strong> — uma plataforma
+        de dieta e treino com IA (nutriuai.com.br), uma plataforma educacional gamificada em uso pela
+        Prefeitura de Várzea da Palma/MG e um sistema de gestão de indicadores 5S. Antes disso, dois
+        anos na indústria automatizando relatórios e rotinas administrativas com VBA. Trabalho
+        ponta a ponta — do problema de negócio ao produto no ar — com prompt engineering aplicado,
+        integração de LLMs via API e ancoragem do modelo em dados confiáveis.
+      </p>
+    </section>
+
+    <section>
+      <h2>IA na prática</h2>
+      <ul>
+        <li>
+          <strong>Prompt engineering aplicado a produto:</strong> prompt montado em tempo de execução
+          com gasto energético calculado (Mifflin-St Jeor), restrições do usuário e alimentos da
+          tabela TACO; saída estruturada consumida direto pela interface. <em>(NutriUAI, em produção)</em>
+        </li>
+        <li>
+          <strong>Grounding para reduzir alucinação:</strong> a IA escreve e adapta, mas os números
+          vêm de fonte oficial e de cálculo determinístico feito em código. <em>(NutriUAI)</em>
+        </li>
+        <li>
+          <strong>Assistente conversacional em produção:</strong> chat de tira-dúvidas sobre a API
+          da OpenAI, com papel e limites via system prompt, contexto do perfil do usuário e
+          tratamento de falha da API. <em>(NutriUAI)</em>
+        </li>
+        <li>
+          <strong>Automação que devolve tempo:</strong> relatórios administrativos montados à mão
+          todo mês, substituídos por rotina automatizada em VBA. <em>(Rima Industrial, 2 anos)</em>
+        </li>
+        <li>
+          <strong>Velocidade com IA no desenvolvimento:</strong> uso IA como par de programação no
+          próprio fluxo, o que permite sair do zero ao produto no ar em dias, cobrindo frontend,
+          backend e banco sozinho.
+        </li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>Experiência</h2>
+
+      <div class="item">
+        <div class="item-head">
+          <div>
+            <div class="item-title">Desenvolvedor de Produtos com IA</div>
+            <div class="item-org">Projetos autorais e freelance</div>
+          </div>
+          <div class="item-date">2024 — Atual</div>
+        </div>
+        <ul>
+          <li>
+            Concepção e desenvolvimento ponta a ponta do NutriUAI, plataforma de dieta e treino com
+            IA generativa — da modelagem do banco ao deploy em produção
+          </li>
+          <li>
+            Entrega da plataforma Digita Brasil para a Prefeitura de Várzea da Palma/MG: jogos
+            educacionais gamificados para reforço de Português e Matemática no ensino fundamental
+          </li>
+          <li>
+            Integração de LLMs (OpenAI API) em produto real: geração de planos personalizados e
+            assistente conversacional, com prompts estruturados e saída consumida pela interface
+          </li>
+          <li>
+            Responsabilidade individual sobre a stack completa: React, TypeScript,
+            Supabase/PostgreSQL, Tailwind CSS e deploy
+          </li>
+        </ul>
+      </div>
+
+      <div class="item">
+        <div class="item-head">
+          <div>
+            <div class="item-title">Estagiário em Tecnologia e Administração</div>
+            <div class="item-org">Rima Industrial</div>
+          </div>
+          <div class="item-date">Ago 2021 — Ago 2023</div>
+        </div>
+        <ul>
+          <li>
+            Automação de relatórios e rotinas administrativas com VBA, substituindo preenchimento
+            manual recorrente
+          </li>
+          <li>
+            Mapeamento de processos para identificar gargalos e tarefas repetitivas passíveis de
+            automação
+          </li>
+          <li>Suporte técnico e apoio em rotinas de tecnologia junto às áreas administrativas</li>
+        </ul>
+      </div>
+    </section>
+
+    <section>
+      <h2>Projetos</h2>
+
+      <div class="item">
+        <div class="item-head">
+          <div>
+            <div class="item-title">
+              NutriUAI &nbsp;<a class="proj-link" href="https://nutriuai.com.br">nutriuai.com.br</a>
+            </div>
+            <div class="item-org">Produto com IA generativa &middot; em produção</div>
+          </div>
+        </div>
+        <ul>
+          <li>
+            <strong>Problema:</strong> montar dieta personalizada exige nutricionista ou horas de
+            planilha; quem treina sem acompanhamento segue receita genérica da internet
+          </li>
+          <li>
+            <strong>Solução:</strong> geração de dietas e treinos com IA ancorada em cálculo
+            nutricional real, assistente conversacional e acompanhamento de progresso
+          </li>
+          <li>
+            <strong>Resultado:</strong> produto no ar, construído sozinho de ponta a ponta — frontend,
+            backend, banco e integração de IA
+          </li>
+        </ul>
+        <div class="tag-row">
+          <span class="tag">React</span><span class="tag">TypeScript</span><span class="tag">Supabase</span><span class="tag">OpenAI API</span><span class="tag">Prompt Engineering</span><span class="tag">Tailwind CSS</span>
+        </div>
+      </div>
+
+      <div class="item">
+        <div class="item-head">
+          <div>
+            <div class="item-title">
+              Digita Brasil &nbsp;<a class="proj-link" href="https://digitabrasil.site">digitabrasil.site</a>
+            </div>
+            <div class="item-org">Cliente público &middot; Prefeitura de Várzea da Palma/MG</div>
+          </div>
+        </div>
+        <ul>
+          <li>
+            <strong>Problema:</strong> professores do ensino fundamental precisavam de material de
+            reforço que prendesse a atenção dos alunos
+          </li>
+          <li>
+            <strong>Solução:</strong> plataforma gamificada com jogos educativos de Português e
+            Matemática e acompanhamento de progresso por aluno
+          </li>
+          <li>
+            <strong>Resultado:</strong> requisito levantado com a prefeitura, escopo definido e
+            plataforma entregue e no ar
+          </li>
+        </ul>
+        <div class="tag-row">
+          <span class="tag">React</span><span class="tag">TypeScript</span><span class="tag">Tailwind CSS</span><span class="tag">Gamificação</span>
+        </div>
+      </div>
+
+      <div class="item">
+        <div class="item-head">
+          <div>
+            <div class="item-title">
+              5SManager &nbsp;<a class="proj-link" href="https://github.com/gsilvacoelho-dev/5S-Manager">github.com/gsilvacoelho-dev/5S-Manager</a>
+            </div>
+            <div class="item-org">Ferramenta interna &middot; TCC</div>
+          </div>
+        </div>
+        <ul>
+          <li>
+            <strong>Problema:</strong> auditorias da metodologia 5S registradas em papel e planilha,
+            sem visão consolidada de qual setor evoluía ou travava
+          </li>
+          <li>
+            <strong>Solução:</strong> registro de auditorias, indicadores por setor e geração
+            automática de relatórios para a gestão
+          </li>
+          <li>
+            <strong>Resultado:</strong> controle manual substituído por painel de indicadores — a
+            gestão vê onde agir em vez de compilar planilha
+          </li>
+        </ul>
+        <div class="tag-row">
+          <span class="tag">Python</span><span class="tag">Flask</span><span class="tag">SQLite</span><span class="tag">Dashboards</span>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>Competências técnicas</h2>
+      <div class="skill-row">
+        <span class="skill-label">IA &amp; LLMs</span>
+        <span class="skill-list">
+          OpenAI API &middot; Prompt engineering &middot; Claude &middot; Aplicações com LLM &middot;
+          Grounding e saída estruturada
+        </span>
+      </div>
+      <div class="skill-row">
+        <span class="skill-label">Automação</span>
+        <span class="skill-list">VBA &middot; Automação de relatórios &middot; Mapeamento de processos &middot; Pacote Office</span>
+      </div>
+      <div class="skill-row">
+        <span class="skill-label">Frontend</span>
+        <span class="skill-list">React &middot; TypeScript &middot; Tailwind CSS &middot; Bootstrap</span>
+      </div>
+      <div class="skill-row">
+        <span class="skill-label">Backend</span>
+        <span class="skill-list">Python &middot; Flask &middot; REST APIs</span>
+      </div>
+      <div class="skill-row">
+        <span class="skill-label">Dados</span>
+        <span class="skill-list">PostgreSQL &middot; Supabase &middot; SQLite</span>
+      </div>
+      <div class="skill-row">
+        <span class="skill-label">Ferramentas</span>
+        <span class="skill-list">Git &middot; Vite</span>
+      </div>
+    </section>
+
+    <div class="two-col">
+      <section>
+        <h2>Formação</h2>
+        <div class="item">
+          <div class="item-title">Bacharelado em Sistemas de Informação</div>
+          <div class="item-org">IFNMG — Campus Pirapora</div>
+          <div class="item-date">Mai 2021 — Jan 2026 &middot; Concluído</div>
+        </div>
+        <div class="item">
+          <div class="item-title">Técnico em Administração</div>
+          <div class="item-org">Unimontes — Montes Claros/MG</div>
+          <div class="item-date">2019 — 2020 &middot; Concluído</div>
+        </div>
+      </section>
+
+      <section>
+        <h2>Idiomas</h2>
+        <ul>
+          <li>Português — Nativo</li>
+          <li>Inglês — Básico</li>
+          <li>Espanhol — Básico</li>
+        </ul>
+      </section>
+    </div>
+
+    <div class="no-print">
+      <strong>Para gerar o PDF:</strong> Ctrl+P &rarr; Destino &ldquo;Salvar como PDF&rdquo; &rarr;
+      Margens &ldquo;Padrão&rdquo; &rarr; marque <em>Gráficos de segundo plano</em> &rarr; Salvar.
+      Esta caixa não aparece no PDF.
+      <br /><br />
+      <strong>Antes de enviar, confirme:</strong> o mês/ano de início dos projetos autorais
+      (hoje está como 2024) e, se lembrar de uma estimativa honesta, quantas horas/mês a
+      automação em VBA economizava na Rima Industrial.
+    </div>
+  </body>
+</html>
