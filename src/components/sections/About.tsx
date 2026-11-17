@@ -20,7 +20,7 @@ export function About() {
       <div className="mx-auto max-w-6xl">
         <SectionHeading
           eyebrow="Sobre mim"
-          title="Uso IA para construir, não para estudar"
+          title="Construo com IA para resolver problemas reais"
           align="left"
         />
 

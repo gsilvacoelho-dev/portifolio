@@ -25,7 +25,7 @@ export const resumeData = {
     'Construo produtos, automações e ferramentas internas com IA generativa — da ideia ao ar em dias, não em meses.',
 
   about:
-    'Bacharel em Sistemas de Informação que usa IA generativa como ferramenta de construção, não como assunto de estudo. Já coloquei três produtos em produção: uma plataforma de dieta e treino com IA (nutriuai.com.br), uma plataforma educacional gamificada em uso pela Prefeitura de Várzea da Palma/MG e um sistema de gestão de indicadores 5S. Antes disso, passei dois anos na Rima Industrial automatizando relatórios e rotinas administrativas com VBA — foi ali que aprendi que o valor não está no código, está no tempo que ele devolve para as pessoas.',
+    'Bacharel em Sistemas de Informação que usa IA generativa como ferramenta de construção para resolver problemas de negócio. Já coloquei três produtos em produção: uma plataforma de dieta e treino com IA (nutriuai.com.br), uma plataforma educacional gamificada em uso pela Prefeitura de Várzea da Palma/MG e um sistema de gestão de indicadores 5S. Antes disso, passei dois anos na Rima Industrial automatizando relatórios e rotinas administrativas com VBA — foi ali que aprendi que o valor não está no código, está no tempo que ele devolve para as pessoas.',
 
   aboutSecondary:
     'Meu jeito de trabalhar é AI-first: entendo o problema, escolho o modelo e as ferramentas certas, prototipo rápido e coloco no ar para medir. Já atendi três setores diferentes — fitness, educação pública e indústria — e em todos o padrão foi o mesmo: alguém fazendo manualmente algo que a IA podia fazer melhor.',
