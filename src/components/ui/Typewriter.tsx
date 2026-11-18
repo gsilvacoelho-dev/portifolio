@@ -38,15 +38,26 @@ export function Typewriter({
     }
 
     setCount(0);
-    let i = 0;
-    let timer: number;
-    const tick = () => {
-      i += 1;
-      setCount(i);
-      if (i < text.length) timer = window.setTimeout(tick, speed);
+
+    // A posicao sai do relogio, nao de uma cadeia de setTimeout. Se uma tarefa
+    // longa roubar a thread principal, o texto reaparece onde JA deveria estar
+    // em vez de retomar de onde parou -- era o que fazia a palavra congelar no
+    // meio ("AI Bui") e terminar segundos depois no iPhone.
+    let raf = 0;
+    let shown = 0;
+    const t0 = performance.now();
+
+    const tick = (now: number) => {
+      const n = Math.min(Math.floor((now - t0) / speed), text.length);
+      if (n !== shown) {
+        shown = n;
+        setCount(n);
+      }
+      if (n < text.length) raf = requestAnimationFrame(tick);
     };
-    timer = window.setTimeout(tick, speed);
-    return () => window.clearTimeout(timer);
+    raf = requestAnimationFrame(tick);
+
+    return () => cancelAnimationFrame(raf);
   }, [start, text, speed]);
 
   const done = count >= text.length;

@@ -1,8 +1,14 @@
-import { useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { motion } from 'framer-motion';
 import { PROFILE_PHOTO } from '../../lib/constants';
 
 interface LoaderProps {
+  /**
+   * O site já pode aparecer: os chunks das seções chegaram e o React já as
+   * montou atrás da cortina. A barra enche no tempo dela e espera por isto
+   * antes de subir — assim o commit caro nunca cai em cima da abertura.
+   */
+  ready: boolean;
   /**
    * Dispara quando a cortina COMEÇA a subir — não quando termina.
    * É o sinal de "o site já pode rolar": a página destrava junto com o fade,
@@ -14,6 +20,8 @@ interface LoaderProps {
 const DURATION = 900;
 const HOLD = 100;
 const FADE = 0.45;
+/** Teto absoluto da cortina: pronto ou não, ela sai daqui. */
+const MAX_WAIT = DURATION + HOLD + 1200;
 
 /**
  * Opening loader: avatar + progress bar that counts to 100%, then curtains
@@ -22,11 +30,14 @@ const FADE = 0.45;
  * Regras de acessibilidade/mobile:
  *  - respeita `prefers-reduced-motion` (sem abertura nenhuma);
  *  - solta o scroll no início do fade, com `pointer-events: none` na cortina;
+ *  - só sobe quando o site está montado atrás dela (`ready`), para não
+ *    entregar a tela no exato quadro em que a thread está ocupada;
  *  - tem rede de segurança de relógio de parede, porque `requestAnimationFrame`
  *    é estrangulado no iOS em modo de baixo consumo e em aba de segundo plano.
  */
-export function Loader({ onReveal }: LoaderProps) {
+export function Loader({ ready, onReveal }: LoaderProps) {
   const [progress, setProgress] = useState(0);
+  const [barDone, setBarDone] = useState(false);
   const [done, setDone] = useState(false);
   const [gone, setGone] = useState(false);
   const [imgOk, setImgOk] = useState(true);
@@ -34,47 +45,49 @@ export function Loader({ onReveal }: LoaderProps) {
   const revealRef = useRef(onReveal);
   revealRef.current = onReveal;
 
+  const finishedRef = useRef(false);
+  const finish = useCallback(() => {
+    if (finishedRef.current) return;
+    finishedRef.current = true;
+    setProgress(100);
+    setDone(true);
+    revealRef.current();
+  }, []);
+
+  // 1. Barra de progresso — e atalho para quem pede menos movimento.
   useEffect(() => {
-    let raf = 0;
-    let hold: ReturnType<typeof setTimeout>;
-    let finished = false;
-
-    const finish = () => {
-      if (finished) return;
-      finished = true;
-      setProgress(100);
-      setDone(true);
-      revealRef.current();
-    };
-
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
       finish();
       setGone(true);
       return;
     }
 
+    let raf = 0;
     const start = performance.now();
     const tick = (now: number) => {
       const t = Math.min((now - start) / DURATION, 1);
       // easeOutCubic
       const eased = 1 - Math.pow(1 - t, 3);
       setProgress(Math.round(eased * 100));
-      if (t < 1) {
-        raf = requestAnimationFrame(tick);
-      } else {
-        hold = setTimeout(finish, HOLD);
-      }
+      if (t < 1) raf = requestAnimationFrame(tick);
+      else setBarDone(true);
     };
     raf = requestAnimationFrame(tick);
 
-    const safety = setTimeout(finish, DURATION + HOLD + 600);
+    const safety = setTimeout(finish, MAX_WAIT);
 
     return () => {
       cancelAnimationFrame(raf);
-      clearTimeout(hold);
       clearTimeout(safety);
     };
-  }, []);
+  }, [finish]);
+
+  // 2. A cortina sobe quando a barra encheu E o site está montado atrás dela.
+  useEffect(() => {
+    if (!barDone || !ready) return;
+    const hold = setTimeout(finish, HOLD);
+    return () => clearTimeout(hold);
+  }, [barDone, ready, finish]);
 
   if (gone) return null;
 

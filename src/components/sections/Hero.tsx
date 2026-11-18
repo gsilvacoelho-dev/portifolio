@@ -9,6 +9,7 @@ import { Magnetic } from '../ui/Magnetic';
 import { GithubIcon, LinkedinIcon } from '../ui/SocialIcons';
 import { Typewriter } from '../ui/Typewriter';
 import { CV_PATH, PROFILE_PHOTO } from '../../lib/constants';
+import { useFinePointer } from '../../hooks/useFinePointer';
 
 const ROLE = resumeData.personal.role;
 
@@ -34,6 +35,15 @@ export function Hero({ start = true }: { start?: boolean }) {
   });
 
   const [imgOk, setImgOk] = useState(true);
+
+  /**
+   * No celular o cargo digitado usa o gradiente ESTATICO. O animado combina
+   * `background-clip: text` com um `background-position` em loop infinito: o
+   * Safari do iOS precisa rerrasterizar a mascara de texto a cada quadro, e o
+   * texto ainda muda a cada 72 ms porque esta sendo digitado. Era o elemento
+   * mais caro da pagina, exatamente no momento mais sensivel da abertura.
+   */
+  const fine = useFinePointer();
 
   const onPhotoMove = (e: React.MouseEvent) => {
     const rect = e.currentTarget.getBoundingClientRect();
@@ -85,7 +95,11 @@ export function Hero({ start = true }: { start?: boolean }) {
               </motion.span>
             </span>
             <span className="block pb-1">
-              <Typewriter text={ROLE} start={start} className="gradient-text-animated" />
+              <Typewriter
+                text={ROLE}
+                start={start}
+                className={fine ? 'gradient-text-animated' : 'gradient-text'}
+              />
             </span>
           </h1>
 
