@@ -3,7 +3,7 @@ import { motion, useScroll, useTransform, useMotionValue, useSpring } from 'fram
 import { ArrowRight, Download, Mail, ChevronDown } from 'lucide-react';
 import { resumeData } from '../../data/resume';
 import { staggerContainer, fadeUp, wordReveal } from '../../lib/motion';
-import { scrollToSection } from '../../lib/utils';
+import { scrollToSection, cn } from '../../lib/utils';
 import { Button } from '../ui/Button';
 import { Magnetic } from '../ui/Magnetic';
 import { GithubIcon, LinkedinIcon } from '../ui/SocialIcons';
@@ -187,12 +187,24 @@ export function Hero({ start = true }: { start?: boolean }) {
           >
             {/* Halo ambiente. O avatar já traz o próprio anel neon, então aqui
                 entra só um brilho difuso por trás — nada de segunda moldura. */}
-            <motion.div
-              aria-hidden
-              className="absolute -inset-6 rounded-full bg-gradient-to-br from-accent-cyan/30 via-accent-indigo/20 to-accent-purple/30 blur-3xl"
-              animate={{ opacity: [0.55, 0.9, 0.55], scale: [0.97, 1.03, 0.97] }}
-              transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut' }}
-            />
+            {/* No celular o halo fica PARADO. Animar `scale` num elemento com
+                blur de 64px e o mesmo erro que estava nos orbs do fundo: o
+                Safari do iOS rerrasteriza a camada borrada a cada quadro, e
+                este halo fica encostado no texto que esta sendo digitado --
+                a animacao rodava justamente durante a digitacao. */}
+            {fine ? (
+              <motion.div
+                aria-hidden
+                className="absolute -inset-6 rounded-full bg-gradient-to-br from-accent-cyan/30 via-accent-indigo/20 to-accent-purple/30 blur-3xl"
+                animate={{ opacity: [0.55, 0.9, 0.55], scale: [0.97, 1.03, 0.97] }}
+                transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut' }}
+              />
+            ) : (
+              <div
+                aria-hidden
+                className="absolute -inset-6 rounded-full bg-gradient-to-br from-accent-cyan/30 via-accent-indigo/20 to-accent-purple/30 blur-3xl opacity-70"
+              />
+            )}
 
             {imgOk ? (
               <img
@@ -202,7 +214,13 @@ export function Hero({ start = true }: { start?: boolean }) {
                 width={900}
                 height={900}
                 fetchPriority="high"
-                className="relative h-full w-full object-contain [transform:translateZ(40px)] drop-shadow-[0_18px_50px_rgba(34,211,238,0.28)]"
+                className={cn(
+                  'relative h-full w-full object-contain [transform:translateZ(40px)]',
+                  // `filter: drop-shadow` de 50px numa imagem de 900px, dentro
+                  // de um contexto `preserve-3d`, forca camada propria e paint
+                  // caro no iOS. O avatar ja tem anel neon proprio.
+                  fine && 'drop-shadow-[0_18px_50px_rgba(34,211,238,0.28)]',
+                )}
                 loading="eager"
               />
             ) : (

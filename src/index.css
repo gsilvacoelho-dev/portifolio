@@ -260,6 +260,19 @@ body {
   [class*='backdrop-blur'] {
     backdrop-filter: none;
   }
+
+  /* A borda brilhante dos cards e feita com duas mascaras compostas por
+     `mask-composite` num ::before -- o navegador precisa compor as duas a
+     cada paint, e isso esta em todos os cards de sete secoes. No celular
+     troca por uma borda de 1px, que custa zero. O `box-sizing: border-box`
+     do preflight garante que a borda nao muda o tamanho do card. */
+  .border-glow {
+    border: 1px solid rgba(34, 211, 238, 0.16);
+  }
+
+  .border-glow::before {
+    display: none;
+  }
 }
 
 /* Respect reduced motion */
