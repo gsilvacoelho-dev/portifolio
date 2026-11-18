@@ -225,6 +225,38 @@ body {
   }
 }
 
+/* ============================================
+   CELULAR: vidro sem backdrop-filter
+   ============================================
+   `backdrop-filter` num elemento FIXO obriga o Safari do iOS a reamostrar e
+   reborrar tudo que esta atras a CADA QUADRO de scroll. A Navbar e o botao
+   "voltar ao topo" sao fixos e usavam vidro -- era isso que engasgava a
+   rolagem no iPhone. Num tema escuro um fundo mais opaco fica visualmente
+   quase identico e custa zero.
+
+   Estas regras ficam FORA de @layer de proposito: precisam vencer as
+   utilidades do Tailwind, inclusive `backdrop-blur-*` escrito direto no JSX
+   (menu mobile da Navbar, monograma do Loader). */
+@media (hover: none), (pointer: coarse) {
+  /* Escrito SEM o `-webkit-` de proposito: o Lightning CSS (usado pelo
+     Tailwind v4) trata a versao prefixada como a MESMA propriedade e deixa
+     so a ultima que aparece. Escrevendo apenas a padrao, ele emite as duas
+     formas sozinho -- e e a prefixada que o Safari do iOS honra. */
+  .glass {
+    background: rgba(15, 21, 53, 0.92);
+    backdrop-filter: none;
+  }
+
+  .glass-strong {
+    background: rgba(10, 14, 39, 0.95);
+    backdrop-filter: none;
+  }
+
+  [class*='backdrop-blur'] {
+    backdrop-filter: none;
+  }
+}
+
 /* Respect reduced motion */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {

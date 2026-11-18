@@ -42,7 +42,11 @@ export function Navbar() {
       >
         <nav
           className={cn(
-            'flex w-full max-w-5xl items-center justify-between rounded-full px-4 py-2.5 transition-all duration-500 sm:px-6',
+            // `transition-all` animava o `backdrop-filter` do vidro por 500ms no
+            // instante em que o scroll passa de 40px -- um blur de largura
+            // total animado, que no iOS e um dos piores custos possiveis.
+            'flex w-full max-w-5xl items-center justify-between rounded-full px-4 py-2.5 sm:px-6',
+            'transition-[background-color,border-color,box-shadow] duration-500',
             scrolled ? 'glass-strong shadow-[0_8px_32px_rgba(0,0,0,0.4)]' : 'bg-transparent',
           )}
         >
