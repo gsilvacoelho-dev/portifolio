@@ -132,17 +132,22 @@ body {
    UTILITY COMPONENTS
    ============================================ */
 @layer components {
+  /* Sem `-webkit-backdrop-filter` escrito a mao, de proposito.
+     O Lightning CSS (usado pelo Tailwind v4) trata a versao prefixada como a
+     MESMA propriedade e mantem so a ultima declarada. Como a prefixada vinha
+     depois, o build saia apenas com ela -- e o Blink nao aliasa essa
+     propriedade (`-webkit-mask` e `-webkit-background-clip` ele aliasa; esta
+     nao). Resultado: o vidro nunca renderizou em Chrome, Edge nem Firefox.
+     Escrevendo so a padrao, o build emite as duas formas. */
   .glass {
     background: rgba(15, 21, 53, 0.45);
     backdrop-filter: blur(20px) saturate(140%);
-    -webkit-backdrop-filter: blur(20px) saturate(140%);
     border: 1px solid rgba(148, 163, 184, 0.12);
   }
 
   .glass-strong {
     background: rgba(10, 14, 39, 0.75);
     backdrop-filter: blur(28px) saturate(160%);
-    -webkit-backdrop-filter: blur(28px) saturate(160%);
     border: 1px solid rgba(148, 163, 184, 0.14);
   }
 
